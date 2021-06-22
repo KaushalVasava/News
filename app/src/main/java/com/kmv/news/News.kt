@@ -1,8 +1,8 @@
 package com.kmv.news
 
 data class News (
-    val author:String,
-    val title:String,
+    var author:String,
+    var title:String,
     val url:String,
     val urlToImage:String,
 )
