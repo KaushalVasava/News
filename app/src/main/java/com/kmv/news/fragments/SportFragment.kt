@@ -1,8 +1,10 @@
-package com.kmv.news
+package com.kmv.news.fragments
 
+import android.content.Context
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle;
+import android.util.Log
 
 import androidx.fragment.app.Fragment;
 
@@ -15,10 +17,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.kmv.news.MySingletone
-import com.kmv.news.News
 import com.kmv.news.NewsAdapter
 import com.kmv.news.NewsItemListener
+import com.kmv.news.R
+import com.kmv.news.data.News
+import com.kmv.news.singletone.MySingletone
 import android.view.View as View1
 
 /**
@@ -95,5 +98,14 @@ public class SportFragment : Fragment(), NewsItemListener {
         builder.setToolbarColor(colorInt)
         val customTabsIntent= builder.build();
         context?.let { customTabsIntent.launchUrl(it, Uri.parse(item.url)) };
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d("T","On PAUSE")
+
+        val preference = requireContext().getSharedPreferences("DATA", Context.MODE_PRIVATE)
+        val editor = preference.edit()
+        editor.putInt("Page",2)
+        editor.apply()
     }
 }

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/home"
+        android:id="@+id/main_nav_graph"
         android:title="All"
         android:icon="@drawable/ic_home"/>
     <item
-        android:id="@+id/sport"
+        android:id="@+id/sport_nav_graph"
         android:title="Sport"
         android:icon="@drawable/ic_sport"/>
     <item
-        android:id="@+id/entertainment"
+        android:id="@+id/entertainment_nav_graph"
         android:title="Entertaiment"
         android:icon="@drawable/ic_entertainment"/>
     <item
-        android:id="@+id/health"
+        android:id="@+id/health_nav_graph"
         android:title="Health"
         android:icon="@drawable/ic_health"/>
     <item
-        android:id="@+id/technology"
+        android:id="@+id/technology_nav_graph"
         android:title="Technology"
         android:icon="@drawable/ic_technology"/>
 

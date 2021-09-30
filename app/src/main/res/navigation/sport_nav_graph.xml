@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sport_nav_graph"
+    app:startDestination="@id/sportFragment">
+
+    <fragment
+        android:id="@+id/sportFragment"
+        android:name="com.kmv.news.fragments.SportFragment"
+        android:label="Sport"
+        tools:layout="@layout/fragment_sport" />
+</navigation>

@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.kmv.news.data.News
 
 class NewsAdapter(private val listener: NewsItemListener):RecyclerView.Adapter<NewsViewHolder>(){
     private val item : ArrayList<News> = ArrayList()
@@ -38,7 +39,7 @@ class NewsAdapter(private val listener: NewsItemListener):RecyclerView.Adapter<N
         notifyDataSetChanged()
     }
 }
-public class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
     val textitem = itemView.findViewById<TextView>(R.id.title)
     val image = itemView.findViewById<ImageView>(R.id.image)
     val author = itemView.findViewById<TextView>(R.id.author)

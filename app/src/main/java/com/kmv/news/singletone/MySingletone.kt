@@ -1,4 +1,4 @@
-package com.kmv.news
+package com.kmv.news.singletone
 
 import android.content.Context
 import com.android.volley.Request

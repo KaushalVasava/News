@@ -1,33 +1,36 @@
-package com.kmv.news
+package com.kmv.news.fragments
 
+import android.content.Context
 import android.graphics.Color
 import android.net.Uri
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.kmv.news.MySingletone
-import com.kmv.news.News
 import com.kmv.news.NewsAdapter
 import com.kmv.news.NewsItemListener
+import com.kmv.news.R
+import com.kmv.news.data.News
+import com.kmv.news.singletone.MySingletone
+
 
 /**
  * A simple {@link Fragment} subclass.
+
  * create an instance of this fragment.
  */
-public class HealthFragment: Fragment(), NewsItemListener {
+public class TechnologyFragment : Fragment(), NewsItemListener {
 
-    lateinit var recyclerview3 : RecyclerView
+    lateinit var recyclerview4 : RecyclerView
 
     lateinit var madapter: NewsAdapter
 
@@ -36,12 +39,12 @@ public class HealthFragment: Fragment(), NewsItemListener {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): android.view.View? {
-        val view : View = inflater.inflate(R.layout.fragment_health, container, false);
+        val view : View = inflater.inflate(R.layout.fragment_technology, container, false);
 
-        recyclerview3= view.findViewById(R.id.recyclerview3)
-        recyclerview3.layoutManager = LinearLayoutManager(view.context)
+        recyclerview4= view.findViewById(R.id.recyclerview4)
+        recyclerview4.layoutManager = LinearLayoutManager(view.context)
         madapter = NewsAdapter(this)
-        recyclerview3.adapter = madapter
+        recyclerview4.adapter = madapter
         fetchdata()
 
         // Inflate the layout for this fragment
@@ -51,7 +54,7 @@ public class HealthFragment: Fragment(), NewsItemListener {
 
     private fun fetchdata(){
         //val url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=e7b862bc8d7c46fb809cec353fed07d9"
-        val url = "https://saurav.tech/NewsAPI/top-headlines/category/health/in.json"
+        val url = "https://saurav.tech/NewsAPI/top-headlines/category/technology/in.json"
         val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.GET, url,null,
                 Response.Listener{
@@ -65,7 +68,6 @@ public class HealthFragment: Fragment(), NewsItemListener {
                         newsObject.getString("url"),
                         newsObject.getString("urlToImage")
                 )
-
                 val s = newsObject.getString("title")
 
                 val last = s.length-1
@@ -96,5 +98,14 @@ public class HealthFragment: Fragment(), NewsItemListener {
         builder.setToolbarColor(colorInt)
         val customTabsIntent= builder.build();
         context?.let { customTabsIntent.launchUrl(it, Uri.parse(item.url)) };
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d("T","On PAUSE")
+
+        val preference = requireContext().getSharedPreferences("DATA", Context.MODE_PRIVATE)
+        val editor = preference.edit()
+        editor.putInt("Page",5)
+        editor.apply()
     }
 }

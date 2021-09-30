@@ -1,4 +1,4 @@
-package com.kmv.news
+package com.kmv.news.data
 
 data class News (
     var author:String,

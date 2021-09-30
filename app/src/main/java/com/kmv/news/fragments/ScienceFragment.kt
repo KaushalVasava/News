@@ -1,4 +1,4 @@
-package com.kmv.news
+package com.kmv.news.fragments
 
 import android.graphics.Color
 import android.net.Uri
@@ -16,7 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.kmv.news.*
+import com.kmv.news.NewsAdapter
+import com.kmv.news.NewsItemListener
+import com.kmv.news.R
+import com.kmv.news.data.News
+import com.kmv.news.singletone.MySingletone
 
 /**
  * A simple {@link Fragment} subclass.
