@@ -1,5 +1,7 @@
 package com.kmv.news
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kmv.news.data.News
 
-class NewsAdapter(private val listener: NewsItemListener):RecyclerView.Adapter<NewsViewHolder>(){
-    private val item : ArrayList<News> = ArrayList()
+class NewsAdapter constructor(private val listener: NewsItemListener, val context: Context, items: ArrayList<News>)
+    :RecyclerView.Adapter<NewsViewHolder>(){
+    var item =items
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.news_list_item,parent,false)
+        val view = LayoutInflater.from(context).inflate(R.layout.news_list_item,parent,false)
         val viewHolder = NewsViewHolder(view)
 
         view.setOnClickListener(){
@@ -22,6 +26,7 @@ class NewsAdapter(private val listener: NewsItemListener):RecyclerView.Adapter<N
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
+       Log.d("TAG","Size of list ${item.size}")
        val currentitem = item[position]
        holder.textitem.text = currentitem.title
        holder.author.text = currentitem.author

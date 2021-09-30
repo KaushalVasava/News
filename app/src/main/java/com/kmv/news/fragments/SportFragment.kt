@@ -32,33 +32,35 @@ public class SportFragment : Fragment(), NewsItemListener {
     lateinit var recyclerview1 : RecyclerView
 
     lateinit var madapter: NewsAdapter
+    private var newsArray = ArrayList<News>()
 
     public override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): android.view.View? {
+    ): android.view.View {
         val view : View1 = inflater.inflate(R.layout.fragment_sport, container, false);
 
         recyclerview1= view.findViewById(R.id.recyclerview1)
         recyclerview1.layoutManager = LinearLayoutManager(view.context)
-        madapter = NewsAdapter(this)
-        recyclerview1.adapter = madapter
         fetchdata()
-
+        madapter = NewsAdapter(this,requireContext(),newsArray)
+        recyclerview1.adapter = madapter
         // Inflate the layout for this fragment
        return view
     }
 
 
-    private fun fetchdata(){
+    private fun fetchdata() : ArrayList<News>{
         //val url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=e7b862bc8d7c46fb809cec353fed07d9"
         val url = "https://saurav.tech/NewsAPI/top-headlines/category/sports/in.json"
+        val newsArray = ArrayList<News>()
+        Log.d("TAG","inside fetchdata")
+
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url,null,
             Response.Listener{
                 val newsJsonArray = it.getJSONArray("articles")
-                val newsArray = ArrayList<News>()
                 for(i in 0 until newsJsonArray.length()){
                     val newsObject = newsJsonArray.getJSONObject(i)
                     val news = News(
@@ -81,14 +83,18 @@ public class SportFragment : Fragment(), NewsItemListener {
                     val sub = s.substring(index+1, last+1)
                     news.author=sub
                     newsArray.add(news)
+                    Log.d("TAG","every ${newsArray.size}")
                 }
                 madapter.updateNews(newsArray)
+                // madapter.notifyDataSetChanged()
+
             },
             {
                 val toast = Toast.makeText(context, "No Internet Connection", Toast.LENGTH_LONG)
                 toast.show()
             })
-        context?.let { MySingletone.getInstance(it).addToRequestQueue(jsonObjectRequest) }
+         context?.let { MySingletone.getInstance(it).addToRequestQueue(jsonObjectRequest) }
+       return newsArray
     }
     override fun onItemClicked(item: News) {
         val colorInt: Int = Color.parseColor("#FFFFFF") //blue

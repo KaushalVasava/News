@@ -33,6 +33,7 @@ public class TechnologyFragment : Fragment(), NewsItemListener {
     lateinit var recyclerview4 : RecyclerView
 
     lateinit var madapter: NewsAdapter
+    val newsArray = ArrayList<News>()
 
     public override fun onCreateView(
             inflater: LayoutInflater,
@@ -43,9 +44,9 @@ public class TechnologyFragment : Fragment(), NewsItemListener {
 
         recyclerview4= view.findViewById(R.id.recyclerview4)
         recyclerview4.layoutManager = LinearLayoutManager(view.context)
-        madapter = NewsAdapter(this)
-        recyclerview4.adapter = madapter
         fetchdata()
+        madapter = NewsAdapter(this,requireContext(),newsArray)
+        recyclerview4.adapter = madapter
 
         // Inflate the layout for this fragment
         return view
@@ -55,11 +56,12 @@ public class TechnologyFragment : Fragment(), NewsItemListener {
     private fun fetchdata(){
         //val url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=e7b862bc8d7c46fb809cec353fed07d9"
         val url = "https://saurav.tech/NewsAPI/top-headlines/category/technology/in.json"
+        val newsArray = ArrayList<News>()
+
         val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.GET, url,null,
                 Response.Listener{
             val newsJsonArray = it.getJSONArray("articles")
-            val newsArray = ArrayList<News>()
             for(i in 0 until newsJsonArray.length()){
                 val newsObject = newsJsonArray.getJSONObject(i)
                 val news = News(

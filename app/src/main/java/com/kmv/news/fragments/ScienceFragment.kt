@@ -31,6 +31,7 @@ public class ScienceFragment: Fragment(), NewsItemListener {
     lateinit var recyclerview5: RecyclerView
 
     lateinit var madapter: NewsAdapter
+    val newsArray = ArrayList<News>()
 
     public override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,9 +42,9 @@ public class ScienceFragment: Fragment(), NewsItemListener {
 
         recyclerview5 = view.findViewById(R.id.recyclerview5)
         recyclerview5.layoutManager = LinearLayoutManager(view.context)
-        madapter = NewsAdapter(this)
-        recyclerview5.adapter = madapter
         fetchdata()
+        madapter = NewsAdapter(this,requireContext(),newsArray)
+        recyclerview5.adapter = madapter
 
         // Inflate the layout for this fragment
         return view
@@ -57,7 +58,6 @@ public class ScienceFragment: Fragment(), NewsItemListener {
             Request.Method.GET, url, null,
             Response.Listener {
                 val newsJsonArray = it.getJSONArray("articles")
-                val newsArray = ArrayList<News>()
                 for (i in 0 until newsJsonArray.length()) {
                     val newsObject = newsJsonArray.getJSONObject(i)
                     val news = News(
